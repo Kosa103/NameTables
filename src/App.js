@@ -6,14 +6,14 @@ import {
 } from 'react-router-dom';
 import React from 'react';
 import NamesPage from './NamesPage.js';
-import TodosApp from './Todos.js';
+import TodosApp from './TodosPage.js';
 import './App.css';
 
 
 function App() {
   return (
     <Router>
-      <Link to="/">HOME</Link>
+      <Link to="/" id="home-link">HOME</Link>
       <Switch>
         <Route path="/" exact strict component={NamesPage} />
         <Route path="/user/:id/todos" exact strict component={TodosApp} />

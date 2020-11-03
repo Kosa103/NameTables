@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import './Names.css';
+import './TodosPage.css';
 
 
 function TodosApp(props) {
@@ -32,17 +32,17 @@ function TodosApp(props) {
             const list = todosData.map((todo, index) => {
                 if (todo.completed) {
                     return (
-                        <div key={`${todo.id}`}>
-                            <input type="checkbox" checked="checked" disabled />
-                            <p>{todo.title}</p>
-                        </div>
+                        <tr key={`${todo.id}`}>
+                            <td><input type="checkbox" checked="checked" disabled /></td>
+                            <td><p>{todo.title}</p></td>
+                        </tr>
                     );
                 } else {
                     return (
-                        <div key={`${todo.id}`}>
-                            <input type="checkbox" disabled />
-                            <p>{todo.title}</p>
-                        </div>
+                        <tr key={`${todo.id}`}>
+                            <td><input type="checkbox" disabled /></td>
+                            <td><p>{todo.title}</p></td>
+                        </tr>
                     );
                 }
                 
@@ -56,9 +56,17 @@ function TodosApp(props) {
     }, []);
 
     return (
-        <>
-            {renderList()}
-        </>
+        <table className="todos-table">
+            <tbody>
+                <tr>
+                    <th>Done</th>
+                    <th>Title</th>
+                </tr>
+            </tbody>
+            <tbody>
+                {renderList()}
+            </tbody>
+        </table>
     );
 }
 

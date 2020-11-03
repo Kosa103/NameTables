@@ -3,7 +3,7 @@ import {
     Link
 } from 'react-router-dom';
 import React from 'react';
-import './Names.css';
+import './NamesPage.css';
 
 
 function Backdrop(props) {
@@ -29,13 +29,14 @@ function Controls(props) {
     const nextPage = props.nextPage;
 
     return (
-        <div>
+        <>
             <h3>Go to page:</h3>
             <input id="input-goto-page" onChange={props.onChange}></input>
             <h2>Current page: {page}</h2>
-            <button onClick={prevPage}>{"<= PREV"}</button>
-            <button onClick={nextPage}>{"NEXT =>"}</button>
-        </div>
+            <a onClick={prevPage} className="next-page-button">{"<= PREV"}</a>
+            {"   "}
+            <a onClick={nextPage} className="next-page-button">{"NEXT =>"}</a>
+        </>
     );
 }
 
@@ -45,7 +46,7 @@ function Row(props) {
 
     return (
         <tr>
-            <td><Link to={`/user/${person.id}/todos`}>{person.name}</Link></td>
+            <Link to={`/user/${person.id}/todos`} className="main-table-link" ><td>{person.name}</td></Link>
             <td>{person.gender}</td>
             <td>{person.status}</td>
         </tr>
@@ -65,8 +66,7 @@ function Table(props) {
     }
 
     return (
-        <div>
-            <table>
+            <table className="main-table">
                 <tbody>
                     <tr>
                         <th>Name</th>
@@ -78,7 +78,6 @@ function Table(props) {
                     {renderRows()}
                 </tbody>
             </table>
-        </div>
     );
 }
 
@@ -167,17 +166,14 @@ function NamesPage() {
     return (
         <>
             <Backdrop visibility={visibility} />
-            <div>
+            <div className="header-div">
                 <h1>NAME TABLE</h1>
                 <h3>DESCRIPTION</h3>
                 <p>Table of names fetched from https://gorest.co.in/.</p>
                 <p>Click on a name for more information about the person.</p>
-                <div>
-                </div>
+                <hr />
+                <Controls onChange={debouncedGoToEnteredPage} page={page} nextPage={goToNextPage} prevPage={goToPreviousPage} />
             </div>
-            <hr />
-            <Controls onChange={debouncedGoToEnteredPage} page={page} nextPage={goToNextPage} prevPage={goToPreviousPage} />
-            <hr />
             <Table peopleData={peopleData} />
         </>
     );
