@@ -1,5 +1,4 @@
 import {
-    BrowserRouter as Router,
     Link
 } from 'react-router-dom';
 import React from 'react';
@@ -13,7 +12,7 @@ function Backdrop(props) {
         <div className={`backdrop-background-${visibility}`}>
             <div className="backdrop-textbox">
                 <div className="backdrop-text-container">
-                    <h2 className="loading-indicator" ></h2>
+                    <p className="loading-indicator" ></p>
                     <h2 className="backdrop-text">
                         Loading...
                     </h2>
@@ -33,9 +32,9 @@ function Controls(props) {
             <h3>Go to page:</h3>
             <input id="input-goto-page" onChange={props.onChange}></input>
             <h2>Current page: {page}</h2>
-            <a onClick={prevPage} className="next-page-button">{"<= PREV"}</a>
+            <button onClick={prevPage} className="next-page-button">{"<= PREV"}</button>
             {"   "}
-            <a onClick={nextPage} className="next-page-button">{"NEXT =>"}</a>
+            <button onClick={nextPage} className="next-page-button">{"NEXT =>"}</button>
         </>
     );
 }
@@ -46,7 +45,7 @@ function Row(props) {
 
     return (
         <tr>
-            <Link to={`/user/${person.id}/todos`} className="main-table-link" ><td>{person.name}</td></Link>
+            <td><Link to={`/user/${person.id}/todos`} className="main-table-link" >{person.name}</Link></td>
             <td>{person.gender}</td>
             <td>{person.status}</td>
         </tr>
@@ -105,7 +104,7 @@ function NamesPage() {
         return actor;
     }
 
-    const debouncedGoToEnteredPage = React.useCallback(debounce(goToEnteredPage, 800));
+    const debouncedGoToEnteredPage = debounce(goToEnteredPage, 800);
 
     function goToEnteredPage() {
         const input = document.querySelector("#input-goto-page");
@@ -161,7 +160,7 @@ function NamesPage() {
 
     React.useEffect(() => {
         fetchPeopleData(page);
-    }, []);
+    }, [page]);
 
     return (
         <>
